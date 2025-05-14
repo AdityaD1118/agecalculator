@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Age Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Age Calculator</h2>
+    <input type="date" id="dob">
+    <br>
+    <button onclick="calculateAge()">Calculate Age</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateAge() {
+      const dob = new Date(document.getElementById("dob").value);
+      const now = new Date();
+
+      if (isNaN(dob.getTime())) {
+        document.getElementById("result").innerText = "Please enter a valid date of birth.";
+        return;
+      }
+
+      const diffMs = now - dob;
+
+      const years = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25));
+      const hours = Math.floor(diffMs / (1000 * 60 * 60));
+      const minutes = Math.floor(diffMs / (1000 * 60));
+      const seconds = Math.floor(diffMs / 1000);
+
+      document.getElementById("result").innerHTML = `
+        <p><strong>Years:</strong> ${years}</p>
+        <p><strong>Hours:</strong> ${hours.toLocaleString()}</p>
+        <p><strong>Minutes:</strong> ${minutes.toLocaleString()}</p>
+        <p><strong>Seconds:</strong> ${seconds.toLocaleString()}</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
